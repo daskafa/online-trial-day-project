@@ -12,5 +12,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Interfaces\TeamRepositoryInterface::class,
             \App\Repositories\TeamRepository::class
         );
+
+        $this->app->bind(
+            \App\Interfaces\FixtureRepositoryInterface::class,
+            \App\Repositories\FixtureRepository::class
+        );
     }
 }

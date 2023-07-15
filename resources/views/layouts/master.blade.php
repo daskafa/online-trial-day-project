@@ -10,7 +10,9 @@
 </head>
 <body>
     @include('layouts.header')
-    @yield('content')
+    <div class="mt-8 container mx-auto">
+        @yield('content')
+    </div>
     @include('layouts.footer')
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
