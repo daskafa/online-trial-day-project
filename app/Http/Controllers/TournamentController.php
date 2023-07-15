@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\Enums;
 use App\Interfaces\FixtureRepositoryInterface;
+use App\Interfaces\LeagueTableRepositoryInterface;
 use App\Interfaces\TeamRepositoryInterface;
 use App\Services\TournamentService;
 
@@ -12,16 +13,19 @@ class TournamentController extends Controller
     private TeamRepositoryInterface $teamRepository;
     private TournamentService $tournamentService;
     private FixtureRepositoryInterface $fixtureRepository;
+    private LeagueTableRepositoryInterface $leagueTableRepository;
 
     public function __construct(
-        TeamRepositoryInterface    $teamRepository,
-        TournamentService          $tournamentService,
-        FixtureRepositoryInterface $fixtureRepository
+        TeamRepositoryInterface        $teamRepository,
+        TournamentService              $tournamentService,
+        FixtureRepositoryInterface     $fixtureRepository,
+        LeagueTableRepositoryInterface $leagueTableRepository
     )
     {
         $this->teamRepository = $teamRepository;
         $this->tournamentService = $tournamentService;
         $this->fixtureRepository = $fixtureRepository;
+        $this->leagueTableRepository = $leagueTableRepository;
     }
 
     public function teams()
@@ -53,6 +57,25 @@ class TournamentController extends Controller
         return view('fixtures', [
             'rounds' => $rounds,
             'groupFixtureByWeeks' => $groupFixtureByWeeks
+        ]);
+    }
+
+    public function simulation()
+    {
+        $leagueTables = $this->leagueTableRepository->getLeagueTables();
+        $teams = $this->teamRepository->getTeams();
+
+        if ($leagueTables->isEmpty()) {
+            $this->leagueTableRepository->prepareLeagueTable($teams);
+            $leagueTables = $this->leagueTableRepository->getLeagueTables();
+        }
+
+        $firstWeekFixtures = $this->fixtureRepository->getFirstWeekFixtures();
+
+        return view('simulation', [
+            'teams' => $teams,
+            'leagueTables' => $leagueTables,
+            'firstWeekFixtures' => $firstWeekFixtures
         ]);
     }
 }

@@ -17,5 +17,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Interfaces\FixtureRepositoryInterface::class,
             \App\Repositories\FixtureRepository::class
         );
+
+        $this->app->bind(
+            \App\Interfaces\LeagueTableRepositoryInterface::class,
+            \App\Repositories\LeagueTableRepository::class
+        );
     }
 }

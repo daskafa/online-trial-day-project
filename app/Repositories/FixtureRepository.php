@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Enums\Enums;
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Models\Fixture;
 use Illuminate\Database\Eloquent\Collection;
@@ -28,5 +29,10 @@ class FixtureRepository implements FixtureRepositoryInterface
     public function getFixtures(): Collection
     {
         return $this->model->with('homeTeam', 'awayTeam')->get();
+    }
+
+    public function getFirstWeekFixtures(): Collection
+    {
+        return $this->model->with('homeTeam', 'awayTeam')->where(Enums::FIXTURE_WEEEK_FIELD, 1)->get();
     }
 }
