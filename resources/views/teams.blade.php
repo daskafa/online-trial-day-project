@@ -2,7 +2,7 @@
 @section('content')
     <div class="relative overflow-x-auto">
         <h2 class="text-4xl font-extrabold py-3">Tournament Teams</h2>
-        <table class="w-full text-sm text-left text-gray-500">
+        <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
             <thead class="text-xs text-gray-700 bg-gray-100">
             <tr>
                 <th scope="col" class="px-6 py-3">

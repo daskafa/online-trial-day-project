@@ -33,7 +33,8 @@ class TournamentController extends Controller
         $teams = $this->teamRepository->getTeams();
 
         return view('teams', [
-            'teams' => $teams
+            'teams' => $teams,
+            'menu' => 'teams'
         ]);
     }
 
@@ -56,7 +57,8 @@ class TournamentController extends Controller
 
         return view('fixtures', [
             'rounds' => $rounds,
-            'groupFixtureByWeeks' => $groupFixtureByWeeks
+            'groupFixtureByWeeks' => $groupFixtureByWeeks,
+            'menu' => 'fixtures'
         ]);
     }
 
@@ -75,7 +77,8 @@ class TournamentController extends Controller
         return view('simulation', [
             'teams' => $teams,
             'leagueTables' => $leagueTables,
-            'firstWeekFixtures' => $firstWeekFixtures
+            'firstWeekFixtures' => $firstWeekFixtures,
+            'menu' => 'simulation'
         ]);
     }
 }
