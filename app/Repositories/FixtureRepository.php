@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Models\Fixture;
+use Illuminate\Database\Eloquent\Collection;
 
 class FixtureRepository implements FixtureRepositoryInterface
 {
@@ -22,5 +23,10 @@ class FixtureRepository implements FixtureRepositoryInterface
     public function checkIfFixtureExist(): bool
     {
         return $this->model->count() > 0;
+    }
+
+    public function getFixtures(): Collection
+    {
+        return $this->model->with('homeTeam', 'awayTeam')->get();
     }
 }

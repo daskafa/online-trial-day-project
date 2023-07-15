@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Enums;
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Interfaces\TeamRepositoryInterface;
 use App\Services\TournamentService;
@@ -44,8 +45,14 @@ class TournamentController extends Controller
             $this->fixtureRepository->saveFixture($optimizedRounds);
         }
 
+        $groupFixtureByWeeks = $this
+            ->fixtureRepository
+            ->getFixtures()
+            ->groupBy(Enums::FIXTURE_WEEEK_FIELD);
+
         return view('fixtures', [
             'rounds' => $rounds,
+            'groupFixtureByWeeks' => $groupFixtureByWeeks
         ]);
     }
 }
