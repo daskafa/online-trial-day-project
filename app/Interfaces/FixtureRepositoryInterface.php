@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use App\Models\Fixture;
 use Illuminate\Database\Eloquent\Collection;
 
 interface FixtureRepositoryInterface
@@ -12,5 +13,5 @@ interface FixtureRepositoryInterface
 
     public function getFixtures(): Collection;
 
-    public function getFirstWeekFixtures(): Collection;
+    public function updateFixtureByWeek(Fixture $fixture, array $score): void;
 }

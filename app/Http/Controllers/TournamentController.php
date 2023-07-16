@@ -72,12 +72,12 @@ class TournamentController extends Controller
             $leagueTables = $this->leagueTableRepository->getLeagueTables();
         }
 
-        $firstWeekFixtures = $this->fixtureRepository->getFirstWeekFixtures();
+        $fixtures = $this->fixtureRepository->getFixtures();
+        $this->tournamentService->simulateWeek($fixtures, 1);
 
         return view('simulation', [
             'teams' => $teams,
             'leagueTables' => $leagueTables,
-            'firstWeekFixtures' => $firstWeekFixtures,
             'menu' => 'simulation'
         ]);
     }

@@ -51,24 +51,24 @@
             </tbody>
         </table>
         <div class="grid grid-cols-2 gap-8 mt-8">
-            <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
-                <thead class="text-xs text-gray-700 bg-blue-100">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        {{ $firstWeekFixtures[0]->week . '.st Week' }}
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($firstWeekFixtures as $firstWeekFixture)
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{ $firstWeekFixture->homeTeam->name }} vs {{ $firstWeekFixture->awayTeam->name }}
-                        </th>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
+{{--            <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">--}}
+{{--                <thead class="text-xs text-gray-700 bg-blue-100">--}}
+{{--                <tr>--}}
+{{--                    <th scope="col" class="px-6 py-3">--}}
+{{--                        {{ $firstWeekFixtures[0]->week . '.st Week' }}--}}
+{{--                    </th>--}}
+{{--                </tr>--}}
+{{--                </thead>--}}
+{{--                <tbody>--}}
+{{--                @foreach($firstWeekFixtures as $firstWeekFixture)--}}
+{{--                    <tr class="bg-white border-b">--}}
+{{--                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">--}}
+{{--                            {{ $firstWeekFixture->homeTeam->name }} vs {{ $firstWeekFixture->awayTeam->name }}--}}
+{{--                        </th>--}}
+{{--                    </tr>--}}
+{{--                @endforeach--}}
+{{--                </tbody>--}}
+{{--            </table>--}}
             <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
                 <thead class="text-xs text-gray-700 bg-yellow-100">
                 <tr>

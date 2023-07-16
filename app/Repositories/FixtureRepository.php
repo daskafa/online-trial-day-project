@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Enums\Enums;
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Models\Fixture;
 use Illuminate\Database\Eloquent\Collection;
@@ -31,8 +30,11 @@ class FixtureRepository implements FixtureRepositoryInterface
         return $this->model->with('homeTeam', 'awayTeam')->get();
     }
 
-    public function getFirstWeekFixtures(): Collection
+    public function updateFixtureByWeek(Fixture $fixture, array $score): void
     {
-        return $this->model->with('homeTeam', 'awayTeam')->where(Enums::FIXTURE_WEEEK_FIELD, 1)->get();
+        $this->model->where('id', $fixture->id)->update([
+            'home_team_score' => $score['homeTeamScore'],
+            'away_team_score' => $score['awayTeamScore'],
+        ]);
     }
 }
