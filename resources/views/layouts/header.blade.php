@@ -1,11 +1,11 @@
 <header>
-    <nav class="bg-gray-100 px-4 lg:px-6 py-2.5">
+    <nav class="bg-gray-100 px-4 lg:px-6 py-2.5 border-b border-gray-200">
         <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <a href="{{ url('/') }}" class="flex items-center">
                 <span class="self-center text-gray-500 italic text-sm whitespace-nowrap">insider online trial day project</span>
             </a>
             <div class="flex items-center lg:order-2">
-                <a href="{{ url('assets/yilmaz-daskafa-cv-en.pdf') }}" target="_blank" class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2">
+                <a href="{{ url('assets/yilmaz-daskafa-cv-en.pdf') }}" target="_blank" class="text-white bg-gray-700 hover:bg-gray-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2">
                     <svg class="w-3.5 h-3.5 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778"/>
                     </svg>
@@ -20,13 +20,13 @@
             <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
-                        <a href="{{ url('/') }}" class="@if($menu == 'teams') block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 @else block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 @endif">Tournament Teams</a>
+                        <a href="{{ url('/') }}" class="@if($menu == 'teams') block py-2 pr-4 pl-3 rounded bg-gray-500 lg:bg-transparent lg:text-gray-500 lg:p-0 @else block py-2 pr-4 pl-3 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-gray-500 lg:p-0 @endif">Tournament Teams</a>
                     </li>
                     <li>
-                        <a href="{{ url('fixtures') }}" class="@if($menu == 'fixtures') block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 @else block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 @endif">Generated Fixtures</a>
+                        <a href="{{ url('fixtures') }}" class="@if($menu == 'fixtures') block py-2 pr-4 pl-3 rounded bg-gray-500 lg:bg-transparent lg:text-gray-500 lg:p-0 @else block py-2 pr-4 pl-3 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-gray-500 lg:p-0 @endif">Generated Fixtures</a>
                     </li>
                     <li>
-                        <a href="{{ url('simulation') }}" class="@if($menu == 'simulation') block py-2 pr-4 pl-3 text-white rounded bg-blue-700 lg:bg-transparent lg:text-blue-700 lg:p-0 @else block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 @endif">Simulation</a>
+                        <a href="{{ url('simulation') }}" class="@if($menu == 'simulation') block py-2 pr-4 pl-3 rounded bg-gray-500 lg:bg-transparent lg:text-gray-500 lg:p-0 @else block py-2 pr-4 pl-3 text-gray-500 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-gray-500 lg:p-0 @endif">Simulation</a>
                     </li>
                 </ul>
             </div>

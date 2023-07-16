@@ -59,7 +59,7 @@
         <div class="{{ $isLastFourWeek ? 'grid grid-cols-2 gap-8' : '' }} mt-8">
             @if(!$weeklyFixtures->isEmpty())
                 <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
-                    <thead class="text-xs text-gray-700 bg-blue-100">
+                    <thead class="text-xs text-gray-700 bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             {{ $currentWeek . '.st Week' }}
@@ -79,7 +79,7 @@
             @endif
             @if($isLastFourWeek)
                 <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
-                    <thead class="text-xs text-gray-700 bg-yellow-100">
+                    <thead class="text-xs text-gray-700 bg-gray-100">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             Championship Predictions
@@ -107,20 +107,20 @@
         <div class="flex justify-center mt-8">
             <div class="inline-flex rounded-md shadow-sm" role="group">
                 @if(!$endOfTournament)
-                    <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700">
+                    <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
                         <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 16">
                             <path d="M0 .984v14.032a1 1 0 0 0 1.506.845l12.006-7.016a.974.974 0 0 0 0-1.69L1.506.139A1 1 0 0 0 0 .984Z"/>
                         </svg>
                         Play All Weeks
                     </button>
-                    <a href="{{ url('simulation', $nextWeek) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700">
+                    <a href="{{ url('simulation', $nextWeek) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-gray-700">
                         <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
                         </svg>
                         Play Next Week
                     </a>
                 @endif
-                <a href="{{ url('reset-tournament') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white border bg-red-600 border-red-200 rounded-r-md hover:bg-red-100 focus:z-10">
+                <a href="{{ url('reset-tournament') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white border bg-red-500 border-red-200 rounded-r-md hover:bg-red-100 focus:z-10">
                     <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                         <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                     </svg>
