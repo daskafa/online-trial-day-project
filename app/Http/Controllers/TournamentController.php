@@ -93,7 +93,8 @@ class TournamentController extends Controller
             'teams' => $teams,
             'leagueTables' => $leagueTables,
             'weeklyFixtures' => $weeklyFixtures,
-            'fixtureWeek' => $fixtureWeek + 1
+            'currentWeek' => $fixtureWeek,
+            'nextWeek' => $fixtureWeek + 1,
         ]);
     }
 
