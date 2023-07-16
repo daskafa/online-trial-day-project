@@ -59,10 +59,17 @@ class TournamentController extends Controller
             ->getFixtures()
             ->groupBy(Enums::FIXTURE_WEEEK_FIELD);
 
+        $fixtureWeek = $this->playedWeekRepository->getPlayedWeek();
+        $totalNumberOfWeeks = $this->fixtureRepository->totalNumberOfWeeks();
+
+        $endOfTournament = (int)$totalNumberOfWeeks === (int)$fixtureWeek;
+
         return view('fixtures', [
             'menu' => 'fixtures',
             'rounds' => $rounds,
-            'groupFixtureByWeeks' => $groupFixtureByWeeks
+            'groupFixtureByWeeks' => $groupFixtureByWeeks,
+            'fixtureWeek' => $fixtureWeek,
+            'endOfTournament' => $endOfTournament
         ]);
     }
 

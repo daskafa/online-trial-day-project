@@ -50,7 +50,6 @@ class TournamentService
         return $rounds;
     }
 
-
     public function optimizeRounds($rounds)
     {
         $optimizedRounds = [];
@@ -137,7 +136,7 @@ class TournamentService
 
         $championshipOdds = [];
         foreach ($leagueTable as $team) {
-            $championshipOdds[$team->team->name] = round(($team->points / $totalPoints) * 100, 2);
+            $championshipOdds[$team->team->name] = round(($team->points / $totalPoints) * 100);
         }
 
         return collect($championshipOdds);

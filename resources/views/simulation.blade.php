@@ -32,6 +32,9 @@
             @foreach($leagueTables as $leagueTable)
                 <tr class="bg-white border-b">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                        @if($endOfTournament && $loop->first)
+                            🎉
+                        @endif
                         {{ $leagueTable->team->name }}
                     </th>
                     <td class="px-6 py-4">
@@ -56,7 +59,7 @@
             @endforeach
             </tbody>
         </table>
-        <div class="{{ $isLastFourWeek ? 'grid grid-cols-2 gap-8' : '' }} mt-8">
+        <div class="{{ $isLastFourWeek && !$endOfTournament ? 'grid grid-cols-2 gap-8' : '' }} mt-8">
             @if(!$weeklyFixtures->isEmpty())
                 <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
                     <thead class="text-xs text-gray-700 bg-gray-100">
@@ -77,7 +80,7 @@
                     </tbody>
                 </table>
             @endif
-            @if($isLastFourWeek)
+            @if($isLastFourWeek && !$endOfTournament)
                 <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
                     <thead class="text-xs text-gray-700 bg-gray-100">
                     <tr>
@@ -104,7 +107,17 @@
                 </table>
             @endif
         </div>
-        <div class="flex justify-center mt-8">
+        @if($endOfTournament)
+            <div class="py-8 px-4 mx-auto max-w-screen-xl text-center lg:py-8">
+                <h1 class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-5xl">
+                    Tournament is over! Winner: <span class="underline underline-offset-3 decoration-8 decoration-blue-400"> {{ $leagueTables->first()->team->name }} 🎉</span>
+                </h1>
+                <p class="text-lg font-normal text-gray-500 lg:text-xl">
+                    We have left behind another awesome season. See you next year!
+                </p>
+            </div>
+        @endif
+        <div class="flex justify-center {{ !$endOfTournament ? 'mt-6' : '' }}">
             <div class="inline-flex rounded-md shadow-sm" role="group">
                 @if(!$endOfTournament)
                     <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
