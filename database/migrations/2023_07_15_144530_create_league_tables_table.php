@@ -18,8 +18,8 @@ return new class extends Migration
             $table->tinyInteger('won')->default(0);
             $table->tinyInteger('drawn')->default(0);
             $table->tinyInteger('lost')->default(0);
-            $table->tinyInteger('goals_for')->default(0);
-            $table->tinyInteger('goals_against')->default(0);
+            $table->smallInteger('goals_for')->default(0);
+            $table->smallInteger('goals_against')->default(0);
             $table->tinyInteger('goal_difference')->default(0);
             $table->tinyInteger('points')->default(0);
 

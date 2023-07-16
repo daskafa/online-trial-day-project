@@ -4,14 +4,20 @@ namespace App\Services;
 
 use App\Enums\Enums;
 use App\Interfaces\FixtureRepositoryInterface;
+use App\Interfaces\LeagueTableRepositoryInterface;
 
 class TournamentService
 {
     private FixtureRepositoryInterface $fixtureRepository;
+    private LeagueTableRepositoryInterface $leagueTableRepository;
 
-    public function __construct(FixtureRepositoryInterface $fixtureRepository)
+    public function __construct(
+        FixtureRepositoryInterface     $fixtureRepository,
+        LeagueTableRepositoryInterface $leagueTableRepository
+    )
     {
         $this->fixtureRepository = $fixtureRepository;
+        $this->leagueTableRepository = $leagueTableRepository;
     }
 
     public function generateFixture($teams)
@@ -72,13 +78,21 @@ class TournamentService
     public function simulateWeek($fixtures, $week)
     {
         $weekFixtures = $fixtures->where(Enums::FIXTURE_WEEEK_FIELD, $week);
+        $isPlayedThisWeek = $weekFixtures->map(function ($fixture) {
+            return is_null($fixture->home_team_score) || is_null($fixture->away_team_score);
+        })->contains(false);
 
-        foreach ($weekFixtures as $fixture) {
-            $homeTeam = $fixture->homeTeam;
-            $awayTeam = $fixture->awayTeam;
+        if (!$isPlayedThisWeek) {
+            foreach ($weekFixtures as $fixture) {
+                $homeTeam = $fixture->homeTeam;
+                $awayTeam = $fixture->awayTeam;
 
-            $generatedScore = $this->generateScore($homeTeam, $awayTeam);
-            $this->fixtureRepository->updateFixtureByWeek($fixture, $generatedScore);
+                $generatedScore = $this->generateScore($homeTeam, $awayTeam);
+                $this->fixtureRepository->updateFixtureByWeek($fixture, $generatedScore);
+
+                $newFixture = $this->fixtureRepository->getFixtureById($fixture->id);
+                $this->leagueTableRepository->updateLeagueTable($newFixture);
+            }
         }
     }
 

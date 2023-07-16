@@ -37,4 +37,19 @@ class FixtureRepository implements FixtureRepositoryInterface
             'away_team_score' => $score['awayTeamScore'],
         ]);
     }
+
+    public function getFixtureByWeek(int $week): Collection
+    {
+        return $this->model->where('week', $week)->get();
+    }
+
+    public function getFixtureById(int $id): Fixture
+    {
+        return $this->model->find($id);
+    }
+
+    public function resetFixture(): void
+    {
+        $this->model->truncate();
+    }
 }

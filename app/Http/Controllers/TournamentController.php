@@ -33,8 +33,8 @@ class TournamentController extends Controller
         $teams = $this->teamRepository->getTeams();
 
         return view('teams', [
-            'teams' => $teams,
-            'menu' => 'teams'
+            'menu' => 'teams',
+            'teams' => $teams
         ]);
     }
 
@@ -56,9 +56,9 @@ class TournamentController extends Controller
             ->groupBy(Enums::FIXTURE_WEEEK_FIELD);
 
         return view('fixtures', [
+            'menu' => 'fixtures',
             'rounds' => $rounds,
-            'groupFixtureByWeeks' => $groupFixtureByWeeks,
-            'menu' => 'fixtures'
+            'groupFixtureByWeeks' => $groupFixtureByWeeks
         ]);
     }
 
@@ -69,16 +69,27 @@ class TournamentController extends Controller
 
         if ($leagueTables->isEmpty()) {
             $this->leagueTableRepository->prepareLeagueTable($teams);
-            $leagueTables = $this->leagueTableRepository->getLeagueTables();
         }
 
         $fixtures = $this->fixtureRepository->getFixtures();
         $this->tournamentService->simulateWeek($fixtures, 1);
 
+        $weeklyFixtures = $this->fixtureRepository->getFixtureByWeek(1);
+        $leagueTables = $this->leagueTableRepository->getLeagueTables();
+
         return view('simulation', [
+            'menu' => 'simulation',
             'teams' => $teams,
             'leagueTables' => $leagueTables,
-            'menu' => 'simulation'
+            'weeklyFixtures' => $weeklyFixtures
         ]);
+    }
+
+    public function resetTournament()
+    {
+        $this->fixtureRepository->resetFixture();
+        $this->leagueTableRepository->resetLeagueTable();
+
+        return redirect('/');
     }
 }

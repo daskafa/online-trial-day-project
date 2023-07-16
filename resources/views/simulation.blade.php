@@ -9,7 +9,10 @@
                     Team Name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    P
+                    PTS
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Played
                 </th>
                 <th scope="col" class="px-6 py-3">
                     W
@@ -32,6 +35,9 @@
                         {{ $leagueTable->team->name }}
                     </th>
                     <td class="px-6 py-4">
+                        {{ $leagueTable->points }}
+                    </td>
+                    <td class="px-6 py-4">
                         {{ $leagueTable->played }}
                     </td>
                     <td class="px-6 py-4">
@@ -51,24 +57,24 @@
             </tbody>
         </table>
         <div class="grid grid-cols-2 gap-8 mt-8">
-{{--            <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">--}}
-{{--                <thead class="text-xs text-gray-700 bg-blue-100">--}}
-{{--                <tr>--}}
-{{--                    <th scope="col" class="px-6 py-3">--}}
-{{--                        {{ $firstWeekFixtures[0]->week . '.st Week' }}--}}
-{{--                    </th>--}}
-{{--                </tr>--}}
-{{--                </thead>--}}
-{{--                <tbody>--}}
-{{--                @foreach($firstWeekFixtures as $firstWeekFixture)--}}
-{{--                    <tr class="bg-white border-b">--}}
-{{--                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">--}}
-{{--                            {{ $firstWeekFixture->homeTeam->name }} vs {{ $firstWeekFixture->awayTeam->name }}--}}
-{{--                        </th>--}}
-{{--                    </tr>--}}
-{{--                @endforeach--}}
-{{--                </tbody>--}}
-{{--            </table>--}}
+            <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
+                <thead class="text-xs text-gray-700 bg-blue-100">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        {{ '.st Week' }}
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($weeklyFixtures as $weeklyFixture)
+                    <tr class="bg-white border-b">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            {{ $weeklyFixture->homeTeam->name }} {{ $weeklyFixture->home_team_score }} - {{ $weeklyFixture->away_team_score }} {{ $weeklyFixture->awayTeam->name }}
+                        </th>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
             <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
                 <thead class="text-xs text-gray-700 bg-yellow-100">
                 <tr>
@@ -108,12 +114,12 @@
                     </svg>
                     Play Next Week
                 </button>
-                <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white border bg-red-600 border-red-200 rounded-r-md hover:bg-red-100 focus:z-10 focus:ring-2 focus:ring-red-700 focus:text-red-700">
+                <a href="{{ url('reset-tournament') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white border bg-red-600 border-red-200 rounded-r-md hover:bg-red-100 focus:z-10 focus:ring-2 focus:ring-red-700 focus:text-red-700">
                     <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                         <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
                     </svg>
                     Reset Data
-                </button>
+                </a>
             </div>
         </div>
     </div>
