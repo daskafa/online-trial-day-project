@@ -19,5 +19,7 @@ interface FixtureRepositoryInterface
 
     public function getFixtureById(int $id): Fixture;
 
+    public function totalNumberOfWeeks(): int;
+
     public function resetFixture(): void;
 }

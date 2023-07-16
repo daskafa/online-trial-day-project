@@ -48,6 +48,11 @@ class FixtureRepository implements FixtureRepositoryInterface
         return $this->model->find($id);
     }
 
+    public function totalNumberOfWeeks(): int
+    {
+        return $this->model->max('week');
+    }
+
     public function resetFixture(): void
     {
         $this->model->truncate();

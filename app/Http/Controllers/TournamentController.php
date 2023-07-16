@@ -90,6 +90,17 @@ class TournamentController extends Controller
         $leagueTables = $this->leagueTableRepository->getLeagueTables();
         $leagueTables = $this->tournamentService->orderLeagueTable($leagueTables);
 
+        $totalNumberOfWeeks = $this->fixtureRepository->totalNumberOfWeeks();
+
+        $isLastFourWeek = $totalNumberOfWeeks - $fixtureWeek < 2;
+        if ($isLastFourWeek) {
+            $estimatedResults = $this->tournamentService->championshipOddsPrediction($leagueTables);
+        } else {
+            $estimatedResults = [];
+        }
+
+        $endOfTournament = (int)$totalNumberOfWeeks === (int)$fixtureWeek;
+
         return view('simulation', [
             'menu' => 'simulation',
             'teams' => $teams,
@@ -97,6 +108,9 @@ class TournamentController extends Controller
             'weeklyFixtures' => $weeklyFixtures,
             'currentWeek' => $fixtureWeek,
             'nextWeek' => $fixtureWeek + 1,
+            'isLastFourWeek' => $isLastFourWeek,
+            'estimatedResults' => $estimatedResults,
+            'endOfTournament' => $endOfTournament
         ]);
     }
 

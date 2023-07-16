@@ -130,4 +130,16 @@ class TournamentService
     {
         return $leagueTable->sortByDesc('points');
     }
+
+    public function championshipOddsPrediction($leagueTable)
+    {
+        $totalPoints = $leagueTable->sum('points');
+
+        $championshipOdds = [];
+        foreach ($leagueTable as $team) {
+            $championshipOdds[$team->team->name] = round(($team->points / $totalPoints) * 100, 2);
+        }
+
+        return collect($championshipOdds);
+    }
 }

@@ -56,7 +56,7 @@
             @endforeach
             </tbody>
         </table>
-        <div class="{{ !$weeklyFixtures->isEmpty() ? 'grid grid-cols-2 gap-8' : '' }} mt-8">
+        <div class="{{ $isLastFourWeek ? 'grid grid-cols-2 gap-8' : '' }} mt-8">
             @if(!$weeklyFixtures->isEmpty())
                 <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
                     <thead class="text-xs text-gray-700 bg-blue-100">
@@ -77,34 +77,36 @@
                     </tbody>
                 </table>
             @endif
-            <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
-                <thead class="text-xs text-gray-700 bg-yellow-100">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Championship Predictions
-                    </th>
-                    <td class="px-6 py-4">
-                        %
-                    </td>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($teams as $team)
-                    <tr class="bg-white border-b">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            {{ $team->name }}
+            @if($isLastFourWeek)
+                <table class="w-full text-sm text-left text-gray-500 border-collapse border border-gray-100 divide-y divide-gray-100">
+                    <thead class="text-xs text-gray-700 bg-yellow-100">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">
+                            Championship Predictions
                         </th>
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            ???
-                        </th>
+                        <td class="px-6 py-4">
+                            %
+                        </td>
                     </tr>
-                @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    @foreach($estimatedResults as $key => $estimatedResult)
+                        <tr class="bg-white border-b">
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ $key }}
+                            </th>
+                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                {{ $estimatedResult }}%
+                            </th>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
         <div class="flex justify-center mt-8">
             <div class="inline-flex rounded-md shadow-sm" role="group">
-                @if(!$weeklyFixtures->isEmpty())
+                @if(!$endOfTournament)
                     <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
                         <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 16">
                             <path d="M0 .984v14.032a1 1 0 0 0 1.506.845l12.006-7.016a.974.974 0 0 0 0-1.69L1.506.139A1 1 0 0 0 0 .984Z"/>
