@@ -125,4 +125,9 @@ class TournamentService
             'awayTeamScore' => $awayTeamScore,
         ];
     }
+
+    public function orderLeagueTable($leagueTable)
+    {
+        return $leagueTable->sortByDesc('points');
+    }
 }

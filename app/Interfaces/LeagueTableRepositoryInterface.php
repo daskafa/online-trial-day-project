@@ -14,4 +14,6 @@ interface  LeagueTableRepositoryInterface
     public function updateLeagueTable(Fixture $fixture): void;
 
     public function resetLeagueTable(): void;
+
+    public function getLeagueTablesOrderByPoints(): Collection;
 }

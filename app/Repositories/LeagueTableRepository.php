@@ -71,6 +71,11 @@ class LeagueTableRepository implements LeagueTableRepositoryInterface
         ]);
     }
 
+    public function getLeagueTablesOrderByPoints(): Collection
+    {
+        return $this->model->with('team')->orderBy('points', 'desc')->get();
+    }
+
     public function resetLeagueTable(): void
     {
         $this->model->truncate();
