@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\Enums;
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Interfaces\LeagueTableRepositoryInterface;
+use App\Interfaces\PlayedWeekRepositoryInterface;
 use App\Interfaces\TeamRepositoryInterface;
 use App\Services\TournamentService;
 
@@ -14,18 +15,21 @@ class TournamentController extends Controller
     private TournamentService $tournamentService;
     private FixtureRepositoryInterface $fixtureRepository;
     private LeagueTableRepositoryInterface $leagueTableRepository;
+    private PlayedWeekRepositoryInterface $playedWeekRepository;
 
     public function __construct(
         TeamRepositoryInterface        $teamRepository,
         TournamentService              $tournamentService,
         FixtureRepositoryInterface     $fixtureRepository,
-        LeagueTableRepositoryInterface $leagueTableRepository
+        LeagueTableRepositoryInterface $leagueTableRepository,
+        PlayedWeekRepositoryInterface  $playedWeekRepository
     )
     {
         $this->teamRepository = $teamRepository;
         $this->tournamentService = $tournamentService;
         $this->fixtureRepository = $fixtureRepository;
         $this->leagueTableRepository = $leagueTableRepository;
+        $this->playedWeekRepository = $playedWeekRepository;
     }
 
     public function teams()
@@ -62,7 +66,7 @@ class TournamentController extends Controller
         ]);
     }
 
-    public function simulation()
+    public function simulation($week = null)
     {
         $leagueTables = $this->leagueTableRepository->getLeagueTables();
         $teams = $this->teamRepository->getTeams();
@@ -72,16 +76,24 @@ class TournamentController extends Controller
         }
 
         $fixtures = $this->fixtureRepository->getFixtures();
-        $this->tournamentService->simulateWeek($fixtures, 1);
 
-        $weeklyFixtures = $this->fixtureRepository->getFixtureByWeek(1);
+        if (!is_null($week)) {
+            $fixtureWeek = $week;
+        } else {
+            $fixtureWeek = $this->playedWeekRepository->getPlayedWeek();
+        }
+
+        $this->tournamentService->simulateWeek($fixtures, $fixtureWeek);
+
+        $weeklyFixtures = $this->fixtureRepository->getFixtureByWeek($fixtureWeek);
         $leagueTables = $this->leagueTableRepository->getLeagueTables();
 
         return view('simulation', [
             'menu' => 'simulation',
             'teams' => $teams,
             'leagueTables' => $leagueTables,
-            'weeklyFixtures' => $weeklyFixtures
+            'weeklyFixtures' => $weeklyFixtures,
+            'fixtureWeek' => $fixtureWeek + 1
         ]);
     }
 
@@ -89,6 +101,7 @@ class TournamentController extends Controller
     {
         $this->fixtureRepository->resetFixture();
         $this->leagueTableRepository->resetLeagueTable();
+        $this->playedWeekRepository->resetPlayedWeek();
 
         return redirect('/');
     }

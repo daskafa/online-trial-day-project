@@ -5,19 +5,23 @@ namespace App\Services;
 use App\Enums\Enums;
 use App\Interfaces\FixtureRepositoryInterface;
 use App\Interfaces\LeagueTableRepositoryInterface;
+use App\Interfaces\PlayedWeekRepositoryInterface;
 
 class TournamentService
 {
     private FixtureRepositoryInterface $fixtureRepository;
     private LeagueTableRepositoryInterface $leagueTableRepository;
+    private PlayedWeekRepositoryInterface $playedWeekRepository;
 
     public function __construct(
         FixtureRepositoryInterface     $fixtureRepository,
-        LeagueTableRepositoryInterface $leagueTableRepository
+        LeagueTableRepositoryInterface $leagueTableRepository,
+        PlayedWeekRepositoryInterface  $playedWeekRepository
     )
     {
         $this->fixtureRepository = $fixtureRepository;
         $this->leagueTableRepository = $leagueTableRepository;
+        $this->playedWeekRepository = $playedWeekRepository;
     }
 
     public function generateFixture($teams)
@@ -93,6 +97,8 @@ class TournamentService
                 $newFixture = $this->fixtureRepository->getFixtureById($fixture->id);
                 $this->leagueTableRepository->updateLeagueTable($newFixture);
             }
+
+            $this->playedWeekRepository->incrementPlayedWeek($week);
         }
     }
 

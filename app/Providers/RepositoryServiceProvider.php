@@ -22,5 +22,10 @@ class RepositoryServiceProvider extends ServiceProvider
             \App\Interfaces\LeagueTableRepositoryInterface::class,
             \App\Repositories\LeagueTableRepository::class
         );
+
+        $this->app->bind(
+            \App\Interfaces\PlayedWeekRepositoryInterface::class,
+            \App\Repositories\PlayedWeekRepository::class
+        );
     }
 }

@@ -61,7 +61,7 @@
                 <thead class="text-xs text-gray-700 bg-blue-100">
                 <tr>
                     <th scope="col" class="px-6 py-3">
-                        {{ '.st Week' }}
+                        {{ $fixtureWeek . '.st Week' }}
                     </th>
                 </tr>
                 </thead>
@@ -108,12 +108,12 @@
                     </svg>
                     Play All Weeks
                 </button>
-                <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
+                <a href="{{ url('simulation', $fixtureWeek) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700">
                     <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
                     </svg>
                     Play Next Week
-                </button>
+                </a>
                 <a href="{{ url('reset-tournament') }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white border bg-red-600 border-red-200 rounded-r-md hover:bg-red-100 focus:z-10 focus:ring-2 focus:ring-red-700 focus:text-red-700">
                     <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
                         <path d="M17 4h-4V2a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v2H1a1 1 0 0 0 0 2h1v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6h1a1 1 0 1 0 0-2ZM7 2h4v2H7V2Zm1 14a1 1 0 1 1-2 0V8a1 1 0 0 1 2 0v8Zm4 0a1 1 0 0 1-2 0V8a1 1 0 0 1 2 0v8Z"/>
