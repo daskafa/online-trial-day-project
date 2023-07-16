@@ -127,16 +127,33 @@ class TournamentService
 
     public function orderLeagueTable($leagueTable)
     {
-        return $leagueTable->sortByDesc('points');
+        return $leagueTable->sortByDesc('points')->sortByDesc('goal_difference')->sortByDesc(function ($item) {
+            return $item->points;
+        });
     }
 
-    public function championshipOddsPrediction($leagueTable)
+    public function championshipOddsPrediction($leagueTable, $totalNumberOfWeeks, $fixtureWeek)
     {
         $totalPoints = $leagueTable->sum('points');
+        $highestPointTeam = $leagueTable->first();
 
         $championshipOdds = [];
         foreach ($leagueTable as $team) {
             $championshipOdds[$team->team->name] = round(($team->points / $totalPoints) * 100);
+
+            $maximumPossiblePoints = ($totalNumberOfWeeks - $fixtureWeek) * 3 + $team->points;
+
+            if ($maximumPossiblePoints < $highestPointTeam->points) {
+                $championshipOdds[$team->team->name] = 0;
+            }
+
+            if ($maximumPossiblePoints === $highestPointTeam->points) {
+                $championshipOdds[$team->team->name] = 50;
+            }
+
+            if ($maximumPossiblePoints > $highestPointTeam->points) {
+                $championshipOdds[$team->team->name] = 100;
+            }
         }
 
         return collect($championshipOdds);

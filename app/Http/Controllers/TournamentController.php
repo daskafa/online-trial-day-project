@@ -101,7 +101,7 @@ class TournamentController extends Controller
 
         $isLastFourWeek = $totalNumberOfWeeks - $fixtureWeek < 2;
         if ($isLastFourWeek) {
-            $estimatedResults = $this->tournamentService->championshipOddsPrediction($leagueTables);
+            $estimatedResults = $this->tournamentService->championshipOddsPrediction($leagueTables, $totalNumberOfWeeks, $fixtureWeek);
         } else {
             $estimatedResults = [];
         }
