@@ -38,7 +38,7 @@
                         {{ $leagueTable->team->name }}
                     </th>
                     <td class="px-6 py-4">
-                        {{ $leagueTable->points }}
+                        <strong>{{ $leagueTable->points }}</strong>
                     </td>
                     <td class="px-6 py-4">
                         {{ $leagueTable->played }}
@@ -120,13 +120,7 @@
         <div class="flex justify-center {{ !$endOfTournament ? 'mt-6' : '' }}">
             <div class="inline-flex rounded-md shadow-sm" role="group">
                 @if(!$endOfTournament)
-                    <button type="button" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
-                        <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 14 16">
-                            <path d="M0 .984v14.032a1 1 0 0 0 1.506.845l12.006-7.016a.974.974 0 0 0 0-1.69L1.506.139A1 1 0 0 0 0 .984Z"/>
-                        </svg>
-                        Play All Weeks
-                    </button>
-                    <a href="{{ url('simulation', $nextWeek) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-gray-700">
+                    <a href="{{ url('simulation', $nextWeek) }}" class="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-l-lg hover:bg-gray-100 hover:text-gray-700">
                         <svg class="w-3 h-3 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 12 10">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m7 9 4-4-4-4M1 9l4-4-4-4"/>
                         </svg>

@@ -19,4 +19,9 @@ class TeamRepository implements TeamRepositoryInterface
     {
         return $this->model->get();
     }
+
+    public function resetTeams(): void
+    {
+        $this->model->truncate();
+    }
 }

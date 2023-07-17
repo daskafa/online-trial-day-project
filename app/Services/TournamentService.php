@@ -112,10 +112,10 @@ class TournamentService
         $homeTeamGoalkeeperPower = $homeTeam->goalkeeper_power;
         $awayTeamGoalkeeperPower = $awayTeam->goalkeeper_power;
 
-        $homeTeamScore = random_int(0, $homeTeamPower + $homeTeamSupporterPower + $homeTeamGoalkeeperPower);
-        $awayTeamScore = random_int(0, $awayTeamPower + $awayTeamSupporterPower + $awayTeamGoalkeeperPower);
+        $homeTeamScore = random_int(0, $homeTeamPower * 3 + $homeTeamSupporterPower * 2 + $homeTeamGoalkeeperPower);
+        $awayTeamScore = random_int(0, $awayTeamPower * 3 + $awayTeamSupporterPower * 2 + $awayTeamGoalkeeperPower);
 
-        if ($homeTeamScore > 8 || $awayTeamScore > 8) {
+        if ($homeTeamScore > 5 || $awayTeamScore > 5) {
             return $this->generateScore($homeTeam, $awayTeam);
         }
 
@@ -135,7 +135,7 @@ class TournamentService
     public function championshipOddsPrediction($leagueTable, $totalNumberOfWeeks, $fixtureWeek)
     {
         $totalPoints = $leagueTable->sum('points');
-        $highestPointTeam = $leagueTable->first();
+        $highestPointTeamPoint = $leagueTable->first()->points;
 
         $championshipOdds = [];
         foreach ($leagueTable as $team) {
@@ -143,15 +143,15 @@ class TournamentService
 
             $maximumPossiblePoints = ($totalNumberOfWeeks - $fixtureWeek) * 3 + $team->points;
 
-            if ($maximumPossiblePoints < $highestPointTeam->points) {
+            if ($maximumPossiblePoints < $highestPointTeamPoint) {
                 $championshipOdds[$team->team->name] = 0;
             }
 
-            if ($maximumPossiblePoints === $highestPointTeam->points) {
+            if ($maximumPossiblePoints === $highestPointTeamPoint) {
                 $championshipOdds[$team->team->name] = 50;
             }
 
-            if ($maximumPossiblePoints > $highestPointTeam->points) {
+            if ($maximumPossiblePoints > $highestPointTeamPoint) {
                 $championshipOdds[$team->team->name] = 100;
             }
         }

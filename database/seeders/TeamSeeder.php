@@ -27,6 +27,8 @@ class TeamSeeder extends Seeder
             ],
         ];
 
+        shuffle($teamList);
+
         foreach ($teamList as $key => $team) {
             $teamList[$key]['team_power'] = random_int(1, 10);
             $teamList[$key]['supporter_power'] = random_int(1, 10);

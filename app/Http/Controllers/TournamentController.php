@@ -8,6 +8,9 @@ use App\Interfaces\LeagueTableRepositoryInterface;
 use App\Interfaces\PlayedWeekRepositoryInterface;
 use App\Interfaces\TeamRepositoryInterface;
 use App\Services\TournamentService;
+use Database\Seeders\TeamSeeder;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 
 class TournamentController extends Controller
 {
@@ -75,6 +78,12 @@ class TournamentController extends Controller
 
     public function simulation($week = null)
     {
+        if (!$this->fixtureRepository->checkIfFixtureExist()) {
+            Session::flash('warning', 'Please start the simulation first!');
+
+            return redirect('fixtures');
+        }
+
         $leagueTables = $this->leagueTableRepository->getLeagueTables();
         $teams = $this->teamRepository->getTeams();
 
@@ -123,9 +132,14 @@ class TournamentController extends Controller
 
     public function resetTournament()
     {
+        Schema::disableForeignKeyConstraints();
         $this->fixtureRepository->resetFixture();
         $this->leagueTableRepository->resetLeagueTable();
         $this->playedWeekRepository->resetPlayedWeek();
+        $this->teamRepository->resetTeams();
+        Schema::enableForeignKeyConstraints();
+
+        app(TeamSeeder::class)->run();
 
         return redirect('/');
     }
