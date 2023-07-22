@@ -40,7 +40,7 @@ class FixtureRepository implements FixtureRepositoryInterface
 
     public function getFixtureByWeek(int $week): Collection
     {
-        return $this->model->where('week', $week)->get();
+        return $this->model->where('week', $week)->get(); // todo: With ile relationlar alınmalıydı. View'da foreach ile dönerken gereksiz sorgu atılıyor.
     }
 
     public function getFixtureById(int $id): Fixture

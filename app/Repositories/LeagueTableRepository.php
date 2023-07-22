@@ -25,7 +25,7 @@ class LeagueTableRepository implements LeagueTableRepositoryInterface
     public function prepareLeagueTable($teams): void
     {
         foreach ($teams as $team) {
-            $this->model->create([
+            $this->model->create([ // todo: n kadar sorgu atmak yerine bulk insert ile (ör:array_map) tek sorguda yapılabilirdi.
                 'team_id' => $team->id,
                 'played' => 0,
                 'won' => 0,

@@ -59,13 +59,13 @@ class TournamentController extends Controller
 
         $groupFixtureByWeeks = $this
             ->fixtureRepository
-            ->getFixtures()
+            ->getFixtures() // todo: With ile relationları alıyor ama burada has() ile kontrol etmek çok daha faydalı olabilirdi.
             ->groupBy(Enums::FIXTURE_WEEEK_FIELD);
 
         $fixtureWeek = $this->playedWeekRepository->getPlayedWeek();
         $totalNumberOfWeeks = $this->fixtureRepository->totalNumberOfWeeks();
 
-        $endOfTournament = (int)$totalNumberOfWeeks === (int)$fixtureWeek;
+        $endOfTournament = (int)$totalNumberOfWeeks === (int)$fixtureWeek; // todo: Kod tekrarı(2) var, method'a alınabilirdi. Variable ismi daha iyi olabilirdi.
 
         return view('fixtures', [
             'menu' => 'fixtures',
@@ -88,7 +88,7 @@ class TournamentController extends Controller
         $teams = $this->teamRepository->getTeams();
 
         if ($leagueTables->isEmpty()) {
-            $this->leagueTableRepository->prepareLeagueTable($teams);
+            $this->leagueTableRepository->prepareLeagueTable($teams); // todo: Veritabanına kayıt yapılıyor isimlendirme çokta doğru değil.
         }
 
         $fixtures = $this->fixtureRepository->getFixtures();
@@ -97,9 +97,9 @@ class TournamentController extends Controller
             $fixtureWeek = $week;
         } else {
             $fixtureWeek = $this->playedWeekRepository->getPlayedWeek();
-        }
+        } // todo: null coalescing operator (??) ile tek satırda yazılabilirdi.
 
-        $this->tournamentService->simulateWeek($fixtures, $fixtureWeek);
+        $this->tournamentService->simulateWeek($fixtures, $fixtureWeek); // todo: Birden fazla tabloya kayıt yapılıyor. Bu işlemi DB::beginTransaction() ile yaparak try catch içerisine almak daha doğru olurdu.
 
         $weeklyFixtures = $this->fixtureRepository->getFixtureByWeek($fixtureWeek);
 
@@ -108,7 +108,7 @@ class TournamentController extends Controller
 
         $totalNumberOfWeeks = $this->fixtureRepository->totalNumberOfWeeks();
 
-        $isLastFourWeek = $totalNumberOfWeeks - $fixtureWeek < 2;
+        $isLastFourWeek = $totalNumberOfWeeks - $fixtureWeek < 2; // todo: Son 2 hafta'ya girildiğinde true set ediliyor, ama variable ismi yanlış. (Ayrıca task'ta son 3 hafta'ya girildiğinde yazıyordu.)
         if ($isLastFourWeek) {
             $estimatedResults = $this->tournamentService->championshipOddsPrediction($leagueTables, $totalNumberOfWeeks, $fixtureWeek);
         } else {

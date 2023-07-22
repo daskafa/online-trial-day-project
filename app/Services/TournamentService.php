@@ -60,9 +60,7 @@ class TournamentService
                     'away' => $match['away'],
                 ];
             }
-
-        }
-
+        } // todo: burada sadece array keylerini 1 arttırdım, daha pratik olabilirdi
         $prepareRoundsForDBSave = [];
         foreach ($optimizedRounds as $key => $optimizedRound) {
             foreach ($optimizedRound as $optimizedRoundMatch) {
@@ -91,13 +89,13 @@ class TournamentService
                 $awayTeam = $fixture->awayTeam;
 
                 $generatedScore = $this->generateScore($homeTeam, $awayTeam);
-                $this->fixtureRepository->updateFixtureByWeek($fixture, $generatedScore);
+                $this->fixtureRepository->updateFixtureByWeek($fixture, $generatedScore); // todo: n kadar sorgu atmak yerine bulk insert yapılabilirdi.
 
                 $newFixture = $this->fixtureRepository->getFixtureById($fixture->id);
                 $this->leagueTableRepository->updateLeagueTable($newFixture);
             }
 
-            $this->playedWeekRepository->incrementPlayedWeek($week);
+            $this->playedWeekRepository->incrementPlayedWeek($week); // todo: Ekstra güvenlik için daha önce bu $week değerine sahip bir kayıt var mı diye kontrol edilebilirdi.
         }
     }
 
@@ -135,7 +133,7 @@ class TournamentService
     public function championshipOddsPrediction($leagueTable, $totalNumberOfWeeks, $fixtureWeek)
     {
         $totalPoints = $leagueTable->sum('points');
-        $highestPointTeamPoint = $leagueTable->first()->points;
+        $highestPointTeamPoint = $leagueTable->first()->points; // todo: Variable ismi daha iyi olabilirdi.
 
         $championshipOdds = [];
         foreach ($leagueTable as $team) {

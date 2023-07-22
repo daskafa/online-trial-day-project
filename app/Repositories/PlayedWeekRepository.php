@@ -19,7 +19,7 @@ class PlayedWeekRepository implements PlayedWeekRepositoryInterface
         return $this->model->orderBy('id', 'desc')->first()->week ?? 1;
     }
 
-    public function incrementPlayedWeek($week): void
+    public function incrementPlayedWeek($week): void // todo: Field değerini arttırmak yerine yeni bir kayıt oluşturduğu için methodun adı yanlış.
     {
         $this->model->create(['week' => $week]);
     }
